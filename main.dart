@@ -32,7 +32,7 @@ List<dynamic> passwordStrengthChecker(
   // Check for Lowercase Letters
   if (password.contains(RegExp(r'[a-z]'))) {
     strengthScore += 2.0;
-    report["Lowercase"] = "Contains Uppercase Letters (Good)";
+    report["Lowercase"] = "Contains Lowercase Letters (Good)";
   } else {
     report["Lowercase"] = "No Lower Case Letters (Weak)";
   }
@@ -56,7 +56,7 @@ List<dynamic> passwordStrengthChecker(
   // Determine Overall Strength
   String overallStrength;
   if (strengthScore >= 8) {
-    overallStrength = "Stong";
+    overallStrength = "Strong";
   } else if (strengthScore >= 5) {
     overallStrength = "Moderate";
   } else if (strengthScore >= 3) {
@@ -68,15 +68,23 @@ List<dynamic> passwordStrengthChecker(
 
   returnedList.add(strengthScore);
   returnedList.add(report);
+
   return returnedList;
 }
 
 void main() {
   print("Hello in My Password Strength Checker");
-  stdout.write("Please Enter Your Password:");
+  stdout.write("Please Enter Your Password: ");
   String? user_input = stdin.readLineSync();
 
   if (user_input != null) {
     List result = passwordStrengthChecker(user_input, giveReport: true);
+    print("Password Strength Score : ${result[0]}");
+    print("Password Strength Report ...");
+    Map<String, dynamic> report = result[1];
+    report.forEach((key, value) {
+      print("$key : $value");
+    });
+
   }
 }
